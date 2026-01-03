@@ -3,6 +3,12 @@ vim.keymap.set("n", "j", "jzz", { desc = "Move one down and vertically center" }
 vim.keymap.set("n", "k", "kzz", { desc = "Move one up and vertically center" })
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Move halfway down and vertically center" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Move halfway up and vertically center" })
+vim.keymap.set("n", "'a", "'azz", { desc = "Move to marker A and vertically center" })
+vim.keymap.set("n", "'b", "'bzz", { desc = "Move to marker B and vertically center" })
+vim.keymap.set("n", "'c", "'azz", { desc = "Move to marker C and vertically center" })
+vim.keymap.set("n", "'d", "'bzz", { desc = "Move to marker D and vertically center" })
+vim.keymap.set("n", "'e", "'azz", { desc = "Move to marker E and vertically center" })
+vim.keymap.set("n", "'f", "'bzz", { desc = "Move to marker F and vertically center" })
 
 -- EXIT WHILE INSERTING
 vim.keymap.set("i", "<C-c>", "<esc>", { desc = "Exit insert mode" })
