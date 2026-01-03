@@ -19,6 +19,7 @@ ln -fs ~/dev/dotfiles/bash/.bashrc ~
 ln -fs ~/dev/dotfiles/bash/.bash_aliases ~
 
 # Fonts
+mkdir ~/.local/share/fonts
 ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Regular.ttf ~/.local/share/fonts
 ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFontPlusCodicons-Regular.ttf ~/.local/share/fonts
 
