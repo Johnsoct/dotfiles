@@ -11,7 +11,7 @@
 -- SOURCE VIMRC END
 
 vim.opt.clipboard = "unnamed"
--- vim.opt.colorcolumn = 80
+vim.opt.colorcolumn = "100"
 vim.opt.autoindent = true -- Enable automatic indentation
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.mouse = "" -- Disable the mouse
@@ -22,15 +22,7 @@ vim.opt.tabstop = 4 -- number of spaces a tab counts for
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.updatetime = 250
-vim.opt.termguicolors = true
-
--- vim.api.hi
--- vim.highlight "colorcolumn"
--- ctermbg = 7
--- guibg = #898989
-
--- vim.hl.ColorColumn ctermbg=7 guibg=#898989
--- vim.hl.ColorColumn({ ctermbg = "7", guibg = "#898989" })
--- "hl-ColorColumn"
--- autocmd WinLeave * set colorcolumn=0
--- autocmd WinEnter * set colorcolumn=+0
+-- Use terminal colors only (true = no, false = yes)
+vim.opt.termguicolors = false
+-- Explicitly use the theme of the terminal
+vim.cmd.colorscheme("default")

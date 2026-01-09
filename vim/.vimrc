@@ -40,7 +40,6 @@ call plug#end()
 
 set hls ic
 syntax enable
-let g:airline_theme='minimalist'
 set clipboard=unnamedplus
 set relativenumber
 set re=0
@@ -53,7 +52,7 @@ set re=0
 " LINE RULE BEGIN
 " LINE RULE BEGIN
 
-set colorcolumn=80
+set colorcolumn=100
 highlight ColorColumn ctermbg=7 guibg=#898989
 
 " Only show the colorcolumn in the current window
