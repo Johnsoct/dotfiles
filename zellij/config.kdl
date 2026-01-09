@@ -1,134 +1,84 @@
-theme "dracula"
+mouse_mode false
 on_force_close "quit"
 pane_frames false
-simplified_ui false 
+show_startup_tips false
+simplified_ui true
+theme "menace"
+// theme "molokai-dark"
 ui {
 	pane_frames {
+        hide_session_name true
 		rounded_corners true
 	}
 }
 
 keybinds {
-    // Updating all Ctrl keybinds to Alt to avoid overlap with nvim/vim
     locked {
-	unbind "Ctrl g"
-	bind "Super g" { SwitchToMode "Normal"; }
+    }
+    
+    normal {
     }
 
     resize {
-	unbind "Ctrl n"
-	bind "Super n" { SwitchToMode "Normal"; }
     }
 
     pane {
-	unbind "Ctrl p"
-	bind "Super p" { SwitchToMode "Normal"; }
     }
 
     move {
-	unbind "Ctrl h"
-	bind "Super h" { SwitchToMode "Normal"; }
     }
 
     tab {
-	unbind "Ctrl t"
-	bind "Super t" { SwitchToMode "Normal"; }
+        bind "Alt i" { MoveTab "Left"; }
+        bind "Alt o" { MoveTab "Right"; }
     }
 
     scroll {
-	unbind "Ctrl s"
-	bind "Super s" { SwitchToMode "Normal"; }
-	unbind "Ctrl c"
-	bind "Super c" { ScrollToBottom; SwitchToMode "Normal"; }
-	unbind "Ctrl f"
-	bind "Super f" { PageScrollDown; }
-	unbind "Ctrl b"
-	bind "Super b" { PageScrollUp; }
     }
 
     search {
-	unbind "Ctrl s"
-	bind "Super s" { SwitchToMode "Normal"; }
-	unbind "Ctrl c"
-	bind "Super c" { ScrollToBottom; SwitchToMode "Normal"; }
-	unbind "Ctrl f"
-	bind "Super f" { PageScrollDown; }
-	unbind "Ctrl b"
-	bind "Super b" { PageScrollUp; }
     }
 
     entersearch {
-	unbind "Ctrl c"
-	bind "Super c" { SwitchToMode "Scroll"; }
     }
 
     renametab {
-	unbind "Ctrl c"
-	bind "Super c" { SwitchToMode "Normal"; }
     }
 
     renamepane {
-	unbind "Ctrl c"
-	bind "Super c" { SwitchToMode "Normal"; }
     }
 
     session {
-	unbind "Ctrl o"
-	bind "Super o" { SwitchToMode "Normal"; }
-	unbind "Ctrl s"
-	bind "Super s" { SwitchToMode "Scroll"; }
     }
 
     tmux {
-	unbind "Ctrl b"
-	bind "Super b" { Write 2; SwitchToMode "Normal"; }
     }
 
     shared_except "locked" {
-	unbind "Ctrl g"
-	bind "Super g" { SwitchToMode "Locked"; }
-	unbind "Ctrl q"
-	bind "Super q" { Quit; }
     }
 
     shared_except "pane" "locked" {
-	unbind "Ctrl p"
-	bind "Super p" { SwitchToMode "Pane"; }
     }
 
     shared_except "resize" "locked" {
-	unbind "Ctrl n"
-	bind "Super n" { SwitchToMode "Resize"; }
     }
 
     shared_except "scroll" "locked" {
-	unbind "Ctrl s"
-	bind "Super s" { SwitchToMode "Scroll"; }
     }
 
     shared_except "session" "locked" {
-	unbind "Ctrl o"
-	bind "Super o" { SwitchToMode "Session"; }
     }
 
     shared_except "tab" "locked" {
-	unbind "Ctrl t"
-	bind "Super t" { SwitchToMode "Tab"; }
     }
 
     shared_except "move" "locked" {
-	unbind "Ctrl h"
-	bind "Super h" { SwitchToMode "Move"; }
     }
 
     shared_except "tmux" "locked" {
-	unbind "Ctrl b"
-	bind "Super b" { SwitchToMode "Tmux"; }
     }
 
     shared_except "session" "locked" {
-        unbind "Ctrl o"
-        bind "Super o" { SwitchToMode "Session"; }
     }
 }
 
