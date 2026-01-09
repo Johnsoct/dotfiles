@@ -51,3 +51,22 @@ vim.keymap.set("i", "<tab>", function()
         return "<Tab>" -- Insert literal tab otherwise
     end
 end, { expr = true })
+
+-- HOVER
+vim.keymap.set("n", "K", function()
+    vim.lsp.buf.hover({
+        anchor_bias = "above",
+        focusable = false,
+    })
+end, { desc = "LSP Hover" })
+vim.keymap.set("n", "L", function()
+    -- vim.lsp.util.open_floating_preview.Opts
+    -- offset_x/y
+    -- zindex (defaults to 50)
+    -- anchor_bias: auto, above, below (defaults to auto)
+    vim.diagnostic.open_float({
+        focusable = false,
+        scope = "line",
+        anchor_bias = "above",
+    })
+end, { desc = "LSP Hover" })
