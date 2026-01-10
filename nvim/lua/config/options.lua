@@ -23,6 +23,19 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.updatetime = 250
 -- Use terminal colors only (true = no, false = yes)
-vim.opt.termguicolors = false
+vim.opt.termguicolors = true
 -- Explicitly use the theme of the terminal
-vim.cmd.colorscheme("default")
+-- vim.cmd.colorscheme("default")
+-- Define colors for TODO comments (Diagnostic groups)
+-- vim.cmd([[
+--   highlight DiagnosticError ctermfg=0 ctermbg=1
+--   highlight DiagnosticHint  ctermfg=0 ctermbg=2
+--   highlight DiagnosticInfo  ctermfg=0 ctermbg=4
+--   highlight DiagnosticWarn  ctermfg=0 ctermbg=3
+--   highlight DiagnosticTest  ctermfg=0 ctermbg=5
+--   highlight TodoBgTODO ctermfg=0 ctermbg=1
+--   highlight TodoBgFIX  ctermfg=0 ctermbg=2
+--   highlight TodoBgNOTE  ctermfg=0 ctermbg=4
+--   highlight TodoBgWARN  ctermfg=0 ctermbg=3
+--   highlight TodoBgTest  ctermfg=0 ctermbg=5
+-- ]])
