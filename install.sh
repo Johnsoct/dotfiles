@@ -23,7 +23,11 @@ mkdir ~/.local/share/fonts
 ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Regular.ttf ~/.local/share/fonts
 ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFontPlusCodicons-Regular.ttf ~/.local/share/fonts
 
-# # Nvim
+# Konsole
+mkdir ~/.local/share/konsole
+ln -fs ~/dev/dotfiles/konsole/zenbones_dark.colorscheme ~/.local/share/konsole
+
+# Nvim
 ln -fs ~/dev/dotfiles/nvim ~/.config
 
 # Vim
