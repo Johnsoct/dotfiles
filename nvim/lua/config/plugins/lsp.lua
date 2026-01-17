@@ -29,6 +29,8 @@ return {
                 "luaformatter",
                 "markdownlint",
                 "marksman",
+                "pyright",
+                "ruff",
                 "shellcheck",
                 "shfmt",
                 "some-sass-language-server",
