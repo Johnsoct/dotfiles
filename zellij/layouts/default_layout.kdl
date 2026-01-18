@@ -15,12 +15,6 @@ layout {
 	}
 
 	tab name="mwp" {
-		pane {
-			command "/opt/nvim-linux-x86_64/bin/nvim"
-			cwd "~/dev/magic-web-portal"
-			focus true
-			name "nvim"
-		}
 		pane split_direction="vertical" {
 			pane {
 				cwd "~/dev/magic-web-portal"
@@ -37,6 +31,14 @@ layout {
 				command "nr"
 				args "dev"
 				name "server"
+			}
+		}
+		pane split_direction="horizontal" {
+			pane {
+				command "/opt/nvim-linux-x86_64/bin/nvim"
+				cwd "~/dev/magic-web-portal"
+				focus true
+				name "nvim"
 			}
 			pane {
 				cwd "~/dev/magic-web-portal"

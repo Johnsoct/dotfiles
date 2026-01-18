@@ -1,4 +1,4 @@
-mouse_mode false
+mouse_mode true 
 on_force_close "quit"
 pane_frames false
 show_startup_tips false

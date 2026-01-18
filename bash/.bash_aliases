@@ -10,6 +10,7 @@ alias pg_stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.
 alias py="python3"
 #alias vim="/usr/bin/gvim -v"
 alias nr="npm run"
+alias nri="rm -rf node_modules && npm install"
 alias pn="pnpm"
 
 # LINUX
