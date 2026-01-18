@@ -42,7 +42,7 @@ ln -fs ~/dev/dotfiles/zellij ~/.config
 
 # WARN: must be installed before node global packages
 chmod +x ./cli/cli-tool-install.sh
-./cli/cli-tool-install.sh --yes -y --assume-yes
+sudo ./cli/cli-tool-install.sh --yes -y --assume-yes
 
 chmod +x ./node/global-packages.sh
 ./node/global-packages.sh
