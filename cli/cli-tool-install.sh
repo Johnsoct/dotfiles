@@ -95,7 +95,7 @@ if ! command -v pnpm >/dev/null 2>&1; then
 fi
 
 # PYTEST
-if ! command -v pip >/dev/null 2>&1; then
+if ! command -v pytest >/dev/null 2>&1; then
     pip install pytest
 fi
 
