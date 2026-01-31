@@ -335,6 +335,20 @@ return {
             lsp.enable("lua_ls")
 
             ----------------
+            --- MARKSMAN ---
+            ----------------
+            --- https://github.com/artempyanykh/marksman
+            lsp.config("marksman", {
+                cmd = { "marksman", "server" },
+                filetypes = { "markdown", "markdown.mdx" },
+                root_markers = {
+                    ".marksman.toml",
+                    ".git",
+                },
+            })
+            lsp.enable("marksman")
+
+            ----------------
             ---- PYTHON ----
             ----------------
             --- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/pylsp.lua
