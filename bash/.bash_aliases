@@ -12,6 +12,7 @@ alias py="python3"
 alias nr="npm run"
 alias nri="rm -rf node_modules && npm install"
 alias pn="pnpm"
+alias pr="pnpm run"
 
 # LINUX
 alias battery="upower -i $(upower -e | grep BAT)"
