@@ -31,6 +31,7 @@ vim.keymap.set("n", "<C-k>", ":cprev<CR>", { desc = "Quickfix prev" })
 vim.keymap.set("n", "<leader>y", '"+y', { desc = "enables copying the result of complex motions to the OS clipboard" })
 vim.keymap.set("v", "<leader>y", '"+y', { desc = "enables copying a thing in visual mode to OS clipboard" })
 vim.keymap.set("n", "<leader>Y", 'gg"+yG', { desc = "copies the entire file" })
+vim.keymap.set("x", "p", "_dP", { desc = "use block hole register to paste over without losing yank" })
 
 -- LINE MANIPULATION
 -- vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "moves selected code down one line" })
