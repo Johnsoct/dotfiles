@@ -1,12 +1,43 @@
-# TODO: check for `uname -a` to determine whether linux distro
-# is debian or fedora and install via apt/dnf
+#!/bin/bash
+
+run_os_specific_command_with_sudo() {
+    # $@ expands each argument as a separate quoted string
+    # $* expands all arguments as a single string
+
+    if command -v apt &>/dev/null; then
+        sudo apt "$@"
+
+    elif command -v dnf &>/dev/null; then
+        sudo dnf "$@"
+
+    else
+        echo "Supported package manager not found"
+        exit 1
+    fi
+}
+
+install() {
+    # $@ expands each argument as a separate quoted string
+    # $* expands all arguments as a single string
+
+    if command -v apt &>/dev/null; then
+        sudo apt install "$@" -y
+
+    elif command -v dnf &>/dev/null; then
+        sudo dnf install "$@" -y
+
+    else
+        echo "Supported package manager not found"
+        exit 1
+    fi
+}
 
 # GIT
-sudo dnf install git
+install git
 
 # EZA
 if ! command -v eza >/dev/null 2>&1; then
-    git clone git@github.com:eza-community/eza.git
+    git clone https://github.com/eza-community/eza.git
     cd eza
     cargo install --path .
     cd ..
@@ -15,25 +46,25 @@ fi
 
 # Fastfetch
 if ! command -v fastfetch >/dev/null 2>&1; then
-    sudo dnf install fastfetch
+    install fastfetch
 fi
 
 # FD
 if ! command -v fd >/dev/null 2>&1; then
-    sudo dnf install fd-find
+    install fd-find
 fi
 
 # FZF
 if ! command -v fzf >/dev/null 2>&1; then
-    git clone git@github.com:junegunn/fzf.git
+    git clone https://github.com/junegunn/fzf.git
     chmod +x fzf/install
-    ./install
+    ./fzf/install -y
     rm -rf fzf
 fi
 
 # Lazygit
 if ! command -v lazygit >/dev/null 2>&1; then
-    sudo dnf install lazygit
+    install lazygit
 fi
 
 # Lua
@@ -51,7 +82,7 @@ fi
 
 # Luarocks
 if ! command -v luarocks >/dev/null 2>&1; then
-    git clone git@github.com:luarocks/luarocks.git
+    git clone https://github.com/luarocks/luarocks.git
     cd luarocks
     chmod +x ./configure
     ./configure --with-lua-include=/usr/local/include
@@ -63,7 +94,7 @@ fi
 
 # Image Magick
 if ! command -v magick >/dev/null 2>&1; then
-    git clone --depth 1 --branch 7.1.2-0 git@github.com:ImageMagick/ImageMagick.git ImageMagick-7.1.2
+    git clone --depth 1 --branch 7.1.2-0 https://github.com/ImageMagick/ImageMagick.git ImageMagick-7.1.2
     cd ImageMagick-7.1.2
     ./configure
     make
@@ -83,15 +114,27 @@ fi
 
 # PIP
 if ! command -v pip >/dev/null 2>&1; then
-    sudo dnf install pip -y
+    install pip
 fi
 
 # PNPM
 if ! command -v pnpm >/dev/null 2>&1; then
+    # Uninstall
+    rm -rf "$PNPM_HOME"
+    npm -rm -g pnpm
+
+    # Install
     curl -fsSL https://get.pnpm.io/install.sh | sh -
+
+    # Make pnpm available in the current shell
+    source ~/.bashrc
+
+    pnpm setup
     corepack enable
     corepack prepare pnpm@latest --activate
-    pnpm setup
+
+    # Install global packages
+    ./node/global-packages.sh
 fi
 
 # PYTEST
@@ -101,10 +144,13 @@ fi
 
 # VIM Enhanced
 if ! command -v vim >/dev/null 2>&1; then
-    sudo dnf install vim-enhanced
+    install vim-enhanced
 fi
 
 # Zioxide
 if ! command -v z >/dev/null 2>&1; then
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 fi
+
+# Delete any unnecessary packages
+run_os_specific_command_with_sudo autoremove -y
