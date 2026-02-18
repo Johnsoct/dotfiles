@@ -1,3 +1,5 @@
+#!/bin/bash
+
 git pull
 
 # TODO: convert into a loop via an array
@@ -12,6 +14,7 @@ git pull
 # NOTE: -s - make symlinks instead of hard links
 
 # Alacritty
+rm -rf ~/.config/alacritty
 ln -fs ~/dev/dotfiles/alacritty ~/.config
 
 # Bash
@@ -19,33 +22,34 @@ ln -fs ~/dev/dotfiles/bash/.bashrc ~
 ln -fs ~/dev/dotfiles/bash/.bash_aliases ~
 
 # Fonts
-mkdir ~/.local/share/fonts
+mkdir -p ~/.local/share/fonts
 ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Regular.ttf ~/.local/share/fonts
 ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFontPlusCodicons-Regular.ttf ~/.local/share/fonts
 
 # Konsole
-mkdir ~/.local/share/konsole
-ln -fs ~/dev/dotfiles/konsole/zenbones_dark.colorscheme ~/.local/share/konsole
+if command -v dnf &>/dev/null; then
+    mkdir -p ~/.local/share/konsole
+
+    ln -fs ~/dev/dotfiles/konsole/zenbones_dark.colorscheme ~/.local/share/konsole
+fi
 
 # Nvim
+rm -rf ~/.config/nvim
 ln -fs ~/dev/dotfiles/nvim ~/.config
 
 # Vim
 ln -fs ~/dev/dotfiles/vim/.vimrc ~
 
 # Zellij
+rm -rf ~/.config/zellij
 ln -fs ~/dev/dotfiles/zellij ~/.config
 
 # Additional Installs
 # Additional Installs
 # Additional Installs
 
-# WARN: must be installed before node global packages
 chmod +x ./cli/cli-tool-install.sh
-sudo ./cli/cli-tool-install.sh --yes -y --assume-yes
-
-chmod +x ./node/global-packages.sh
-./node/global-packages.sh
+./cli/cli-tool-install.sh --yes -y --assume-yes
 
 source ~/.bashrc
 
