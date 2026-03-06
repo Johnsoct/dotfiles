@@ -123,7 +123,7 @@ export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin
 export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin/npm
 
 # FZF
-eval "$(fzf --bash)"
+source "$HOME/.fzf.bash"
 
 # Zoxide
 eval "$(zoxide init bash)"
@@ -138,7 +138,7 @@ export NVM_DIR="$HOME/.nvm"
 # pnpm
 export PNPM_HOME="/home/taylor/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
