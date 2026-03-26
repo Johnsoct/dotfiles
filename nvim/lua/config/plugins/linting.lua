@@ -7,6 +7,23 @@ return {
             local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
             ---------------
+            ---LUA CHECK---
+            ---------------
+            vim.list_extend(lint.linters.luacheck.args, {
+                "--globals",
+                "vim",
+            })
+
+            ---------------
+            ---MARKDOWN---
+            ---------------
+            vim.list_extend(lint.linters.markdownlint.args, {
+                "--disable",
+                "MD013",
+                "--",
+            })
+
+            ---------------
             ---LINTERS---
             ---------------
             lint.linters_by_ft = {
@@ -22,12 +39,6 @@ return {
                 typescript = { "eslint_d" },
                 vue = { "eslint_d", "stylelint" },
             }
-
-            ---------------
-            ---LUA CHECK---
-            ---------------
-            lint.linters.luacheck.cmd = "luacheck"
-            lint.linters.luacheck.args = { "--globals", "vim" }
 
             vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
                 group = lint_augroup,

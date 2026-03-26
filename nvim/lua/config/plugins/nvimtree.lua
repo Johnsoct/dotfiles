@@ -8,12 +8,6 @@ return {
             "nvim-tree/nvim-web-devicons",
         },
         config = function()
-            local api = require("nvim-tree.api")
-
-            -- Optionally enabled 24-bit colour
-            vim.keymap.set("n", "<space>e", api.tree.toggle)
-            vim.keymap.set("n", "<space>fe", api.tree.focus)
-
             require("nvim-tree").setup({
                 actions = {
                     open_file = {
@@ -46,6 +40,11 @@ return {
                     enable = true,
                 },
             })
+
+            local api = require("nvim-tree.api")
+
+            vim.keymap.set("n", "<space>e", api.tree.toggle)
+            vim.keymap.set("n", "<space>fe", api.tree.focus)
         end,
     },
 }
