@@ -10,7 +10,7 @@
 -- SOURCE VIMRC END
 -- SOURCE VIMRC END
 
-vim.opt.clipboard = "unnamed"
+vim.opt.clipboard = "unnamedplus" -- Use the system clipboard
 vim.opt.colorcolumn = "100"
 vim.opt.autoindent = true -- Enable automatic indentation
 vim.opt.expandtab = true -- Use spaces instead of tabs
@@ -39,3 +39,16 @@ vim.opt.termguicolors = true
 --   highlight TodoBgWARN  ctermfg=0 ctermbg=3
 --   highlight TodoBgTest  ctermfg=0 ctermbg=5
 -- ]])
+
+vim.g.clipboard = {
+    name = "WslClipboard",
+    copy = {
+        ["+"] = "clip.exe",
+        ["*"] = "clip.exe",
+    },
+    paste = {
+        ["+"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        ["*"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enabled = 0,
+}
