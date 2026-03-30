@@ -20,6 +20,9 @@ return {
             vim.list_extend(lint.linters.markdownlint.args, {
                 "--disable",
                 "MD013",
+                "MD024",
+                "MD033",
+                "MD036",
                 "--",
             })
 
