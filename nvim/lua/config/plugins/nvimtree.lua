@@ -34,7 +34,7 @@ return {
                     centralize_selection = true,
                     relativenumber = true,
                     signcolumn = "yes",
-                    width = 40,
+                    width = 30,
                 },
                 update_focused_file = {
                     enable = true,
