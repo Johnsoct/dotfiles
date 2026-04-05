@@ -598,7 +598,7 @@ return {
                     end, {})
                 end,
             })
-            lsp.enable("ts_ls")
+            -- lsp.enable("ts_ls")
 
             -----------
             --- VTSLS ---
