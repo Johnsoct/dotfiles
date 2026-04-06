@@ -521,11 +521,7 @@ return {
                 cmd = { "typescript-language-server", "--stdio" },
                 filetypes = {
                     "javascript",
-                    "javascriptreact",
-                    "javascript.jsx",
                     "typescript",
-                    "typescriptreact",
-                    "typescript.tsx",
                 },
                 root_dir = function(bufnr, on_dir)
                     -- The project root is where the LSP can be started from
@@ -598,7 +594,7 @@ return {
                     end, {})
                 end,
             })
-            -- lsp.enable("ts_ls")
+            lsp.enable("ts_ls")
 
             -----------
             --- VTSLS ---
@@ -613,11 +609,7 @@ return {
                 },
                 filetypes = {
                     "javascript",
-                    "javascriptreact",
-                    "javascript.jsx",
                     "typescript",
-                    "typescriptreact",
-                    "typescript.tsx",
                     "vue",
                 },
                 settings = {
@@ -650,7 +642,7 @@ return {
                     on_dir(project_root)
                 end,
             })
-            lsp.enable("vtsls")
+            -- lsp.enable("vtsls")
 
             -----------
             --- VUE ---
