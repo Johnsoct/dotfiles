@@ -8,6 +8,28 @@ return {
             "nvim-tree/nvim-web-devicons",
         },
         config = function()
+            -- https://github.com/nvim-tree/nvim-tree.lua?tab=readme-ov-file#custom-mappings
+            local function my_on_attach(bufnr)
+                local api = require("nvim-tree.api")
+
+                local function opts(desc)
+                    return {
+                        desc = "nvim-tree: " .. desc,
+                        buffer = bufnr,
+                        noremap = true,
+                        silent = true,
+                        nowait = true,
+                    }
+                end
+
+                -- Default mappings
+                api.map.on_attach.default(bufnr)
+
+                -- Custom mappings
+                vim.keymap.set("n", "<C-j>", api.node.open.vertical, opts("Open: Vertical Split"))
+                vim.keymap.set("n", "<C-h>", api.node.open.horizontal, opts("Open: SEX"))
+            end
+
             require("nvim-tree").setup({
                 actions = {
                     open_file = {
@@ -15,8 +37,8 @@ return {
                     },
                 },
                 hijack_netrw = true,
+                on_attach = my_on_attach,
                 reload_on_bufenter = true,
-                sync_root_with_cwd = true,
                 renderer = {
                     highlight_opened_files = "name",
                     highlight_modified = "name",
@@ -30,6 +52,7 @@ return {
                         },
                     },
                 },
+                sync_root_with_cwd = true,
                 view = {
                     centralize_selection = true,
                     relativenumber = true,
@@ -41,10 +64,8 @@ return {
                 },
             })
 
-            local api = require("nvim-tree.api")
-
-            vim.keymap.set("n", "<space>e", api.tree.toggle)
-            vim.keymap.set("n", "<space>fe", api.tree.focus)
+            -- Non-nvim-tree buffer commands
+            vim.keymap.set("n", "<leader>e", require("nvim-tree.api").tree.toggle, { desc = "Open nvim-tree" })
         end,
     },
 }
