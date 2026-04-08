@@ -142,3 +142,7 @@ case ":$PATH:" in
 *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# SDI specific stuff
+# Conditional guard to prevent errors when .env.sdi does not exist
+[ -f ~/.env.sdi ] && source "$HOME/.env.sdi"
