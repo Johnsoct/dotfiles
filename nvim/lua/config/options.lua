@@ -43,3 +43,18 @@ vim.opt.termguicolors = true
 vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.wo[0][0].foldmethod = "expr"
 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+if vim.loop.os_uname().sysname == "Windows" then
+    -- vim.g.clipboard = {
+    --     name = "WslClipboard",
+    --     copy = {
+    --         ["+"] = "clip.exe",
+    --         ["*"] = "clip.exe",
+    --     },
+    --     paste = {
+    --         ["+"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    --         ["*"] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    --     },
+    --     cache_enabled = 0,
+    -- }
+end
