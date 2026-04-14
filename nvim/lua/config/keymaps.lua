@@ -57,7 +57,7 @@ end, { expr = true })
 vim.keymap.set("n", "K", function()
     vim.lsp.buf.hover({
         anchor_bias = "above",
-        focusable = false,
+        focusable = true,
     })
 end, { desc = "LSP Hover" })
 vim.keymap.set("n", "L", function()
@@ -66,7 +66,7 @@ vim.keymap.set("n", "L", function()
     -- zindex (defaults to 50)
     -- anchor_bias: auto, above, below (defaults to auto)
     vim.diagnostic.open_float({
-        focusable = false,
+        focusable = true,
         scope = "line",
         anchor_bias = "above",
     })
