@@ -20,6 +20,7 @@ ln -fs ~/dev/dotfiles/alacritty ~/.config
 # Bash
 ln -fs ~/dev/dotfiles/bash/.bashrc ~
 ln -fs ~/dev/dotfiles/bash/.bash_aliases ~
+ln -fs ~/dev/dotfiles/bash/.gitignore ~
 
 # Fonts
 mkdir -p ~/.local/share/fonts
