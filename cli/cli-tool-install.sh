@@ -10,6 +10,9 @@ run_os_specific_command_with_sudo() {
     elif command -v dnf &>/dev/null; then
         sudo dnf "$@"
 
+    elif [ "$(uname -s)" = "Darwin" ]; then
+        brew install "$@"
+
     else
         echo "Supported package manager not found"
         exit 1
@@ -26,6 +29,9 @@ install() {
     elif command -v dnf &>/dev/null; then
         sudo dnf install "$@" -y
 
+    elif [ "$(uname -s)" = "Darwin" ]; then
+        sudo brew install "$@" -y
+
     else
         echo "Supported package manager not found"
         exit 1
@@ -35,13 +41,22 @@ install() {
 # GIT
 install git
 
+# Alacritty
+if [ "$(uname -s)" = "Darwin" ]; then
+    brew install --cask alacritty
+fi
+
 # EZA
 if ! command -v eza >/dev/null 2>&1; then
-    git clone https://github.com/eza-community/eza.git
-    cd eza
-    cargo install --path .
-    cd ..
-    rm -rf eza
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install eza
+    else
+        git clone https://github.com/eza-community/eza.git
+        cd eza
+        cargo install --path .
+        cd ..
+        rm -rf eza
+    fi
 fi
 
 # Fastfetch
@@ -51,15 +66,23 @@ fi
 
 # FD
 if ! command -v fd >/dev/null 2>&1; then
-    install fd-find
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install fd
+    else
+        install fd-find
+    fi
 fi
 
 # FZF
 if ! command -v fzf >/dev/null 2>&1; then
-    git clone https://github.com/junegunn/fzf.git
-    chmod +x fzf/install
-    ./fzf/install -y
-    rm -rf fzf
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install fzf
+    else
+        git clone https://github.com/junegunn/fzf.git
+        chmod +x fzf/install
+        ./fzf/install -y
+        rm -rf fzf
+    fi
 fi
 
 # Lazygit
@@ -69,69 +92,92 @@ fi
 
 # Lua
 if ! command -v lua >/dev/null 2>&1; then
-    curl -L -R -O https://www.lua.org/ftp/lua-5.1.5.tar.gz
-    tar zxf lua-5.1.5.tar.gz
-    cd lua-5.1.5
-    make linux
-    make test
-    sudo make install
-    cd ..
-    rm -rf lua-5.1.5.tar.gz
-    rm -rf lua-5.1.5
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install lua
+    else
+        curl -L -R -O https://www.lua.org/ftp/lua-5.1.5.tar.gz
+        tar zxf lua-5.1.5.tar.gz
+        cd lua-5.1.5
+        make linux
+        make test
+        sudo make install
+        cd ..
+        rm -rf lua-5.1.5.tar.gz
+        rm -rf lua-5.1.5
+    fi
 fi
 
 # Luarocks
 if ! command -v luarocks >/dev/null 2>&1; then
-    git clone https://github.com/luarocks/luarocks.git
-    cd luarocks
-    chmod +x ./configure
-    ./configure --with-lua-include=/usr/local/include
-    make
-    sudo make install
-    cd ..
-    rm -rf luarocks
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install luarocks
+    else
+        git clone https://github.com/luarocks/luarocks.git
+        cd luarocks
+        chmod +x ./configure
+        ./configure --with-lua-include=/usr/local/include
+        make
+        sudo make install
+        cd ..
+        rm -rf luarocks
+    fi
 fi
 
 # Image Magick
 if ! command -v magick >/dev/null 2>&1; then
-    git clone --depth 1 --branch 7.1.2-0 https://github.com/ImageMagick/ImageMagick.git ImageMagick-7.1.2
-    cd ImageMagick-7.1.2
-    ./configure
-    make
-    sudo make install
-    /usr/local/bin/magick logo: logo.gif
-    cd ..
-    rm -rf ImageMagick-7.1.2
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install imagemagick
+    else
+        git clone --depth 1 --branch 7.1.2-0 https://github.com/ImageMagick/ImageMagick.git ImageMagick-7.1.2
+        cd ImageMagick-7.1.2
+        ./configure
+        make
+        sudo make install
+        /usr/local/bin/magick logo: logo.gif
+        cd ..
+        rm -rf ImageMagick-7.1.2
+    fi
 fi
 
 # NVIM
 if ! command -v nvim >/dev/null 2>&1; then
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-    sudo rm -rf /opt/nvim-linux-x86_64
-    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-    rm -rf nvim-linux-x86_64.tar.gz
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install neovim
+    else
+        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+        sudo rm -rf /opt/nvim-linux-x86_64
+        sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+        rm -rf nvim-linux-x86_64.tar.gz
+    fi
 fi
 
 # PIP
-if ! command -v pip >/dev/null 2>&1; then
-    install pip
+if ! command -v python3 -m pip --version >/dev/null 2>&1; then
+    python ../python/get-pip.py
 fi
 
 # PNPM
 if ! command -v pnpm >/dev/null 2>&1; then
-    # Uninstall
-    rm -rf "$PNPM_HOME"
-    npm -rm -g pnpm
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install pnpm
 
-    # Install
-    curl -fsSL https://get.pnpm.io/install.sh | sh -
+        # Make pnpm available in the current shell
+        source ~/.bashrc
+    else
+        # Uninstall
+        rm -rf "$PNPM_HOME"
+        npm -rm -g pnpm
 
-    # Make pnpm available in the current shell
-    source ~/.bashrc
+        # Install
+        curl -fsSL https://get.pnpm.io/install.sh | sh -
 
-    pnpm setup
-    corepack enable
-    corepack prepare pnpm@latest --activate
+        # Make pnpm available in the current shell
+        source ~/.bashrc
+
+        pnpm setup
+        corepack enable
+        corepack prepare pnpm@latest --activate
+    fi
 
     # Install global packages
     ./node/global-packages.sh
@@ -144,12 +190,20 @@ fi
 
 # VIM Enhanced
 if ! command -v vim >/dev/null 2>&1; then
-    install vim-enhanced
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install vim
+    else
+        install vim-enhanced
+    fi
 fi
 
 # Zioxide
 if ! command -v z >/dev/null 2>&1; then
-    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install zioxide
+    else
+        curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+    fi
 fi
 
 # Delete any unnecessary packages

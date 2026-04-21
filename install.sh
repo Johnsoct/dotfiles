@@ -2,6 +2,22 @@
 
 git pull
 
+# Mac-specific
+# Mac-specific
+# Mac-specific
+if [ "$(uname -s)" = "Darwin" ]; then
+    # Homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    # Bash
+    if [ "$(command -v bash)" != "/opt/homebrew/bin/bash" ]; then
+        brew install bash
+        echo /opt/homebrew/bin/bash | sudo tee -a /etc/shells
+    fi
+
+    chsh -s /opt/homebrew/bin/bash
+fi
+
 # TODO: convert into a loop via an array
 # TODO: silent ln failures due to file already existing
 
@@ -23,9 +39,15 @@ ln -fs ~/dev/dotfiles/bash/.bash_aliases ~
 ln -fs ~/dev/dotfiles/bash/.gitignore ~
 
 # Fonts
-mkdir -p ~/.local/share/fonts
-ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Regular.ttf ~/.local/share/fonts
-ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFontPlusCodicons-Regular.ttf ~/.local/share/fonts
+if command -v apt &>/dev/null || command -v dnf &>/dev/null; then
+    mkdir -p ~/.local/share/fonts
+    ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Regular.ttf ~/.local/share/fonts
+    ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFontPlusCodicons-Regular.ttf ~/.local/share/fonts
+else
+    mkdir -p ~/Library/Fonts
+    ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Regular.ttf ~/Library/Fonts
+    ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFontPlusCodicons-Regular.ttf ~/Library/Fonts
+fi
 
 # Konsole
 if command -v dnf &>/dev/null; then
@@ -37,6 +59,10 @@ fi
 # Nvim
 rm -rf ~/.config/nvim
 ln -fs ~/dev/dotfiles/nvim ~/.config
+
+# TODO: Terminal
+# if [ "$(uname -s)" = "Darwin" ]; then
+# fi
 
 # Vim
 ln -fs ~/dev/dotfiles/vim/.vimrc ~
