@@ -32,3 +32,7 @@ The following scripts "installs" only the configurations for alacritty, bash, nv
 From within this directory, run in your terminal of choice:
 
 1. `./install.sh`
+
+### Mac specific steps
+
+1. Configure Terminal.app to trigger "Alt" for the "Option" key (https://superuser.com/questions/1038947/using-the-option-key-properly-on-mac-terminal)
