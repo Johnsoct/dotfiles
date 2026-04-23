@@ -49,6 +49,13 @@ else
     ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFontPlusCodicons-Regular.ttf ~/Library/Fonts
 fi
 
+# Hammerspoon
+if [ "$(uname -s)" = "Darwin" ]; then
+    mkdir -p ~/.hammerspoon
+
+    ln -fs ~/dev/dotfiles/hammerspoon/init.lua ~/.hammerspoon
+fi
+
 # Konsole
 if command -v dnf &>/dev/null; then
     mkdir -p ~/.local/share/konsole
