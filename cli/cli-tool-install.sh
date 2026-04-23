@@ -30,7 +30,7 @@ install() {
         sudo dnf install "$@" -y
 
     elif [ "$(uname -s)" = "Darwin" ]; then
-        sudo brew install "$@" -y
+        brew install "$@"
 
     else
         echo "Supported package manager not found"
