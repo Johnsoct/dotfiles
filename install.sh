@@ -5,7 +5,7 @@ git pull
 # Mac-specific
 # Mac-specific
 # Mac-specific
-if [ "$(uname -s)" = "Darwin" ]; then
+if [ "$(uname -s)" = "Darwin" ] && ! command -v brew &>/dev/null; then
     # Homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
