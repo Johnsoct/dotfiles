@@ -65,6 +65,13 @@ if [ "$(uname -s)" = "Darwin" ]; then
     brew install --cask alacritty
 fi
 
+# CMake
+if ! command -v cmake >/dev/null 2>&1; then
+    if [ "$(uname -s)" = "Darwin" ]; then
+        brew install cmake
+    fi
+fi
+
 # EZA
 if ! command -v eza >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
@@ -104,6 +111,18 @@ if ! command -v fzf >/dev/null 2>&1; then
     fi
 fi
 
+# Go
+if ! command -v go --version >/dev/null 2>&1; then
+    if [ "$(uname -s)" = "Darwin" ]; then
+        brew install go
+    fi
+fi
+
+# Hammerspoon
+if [ "$(uname -s)" = "Darwin" ]; then
+    brew install --cask hammerspoon
+fi
+
 # Lazygit
 if ! command -v lazygit >/dev/null 2>&1; then
     install lazygit
@@ -113,7 +132,10 @@ fi
 if ! command -v lua >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
         install lua
+        # 5.1.x Required for a handful of NVIM plugins, such as luacheck
+        install lua@5.1
     else
+        # 5.1.x Required for a handful of NVIM plugins, such as luacheck
         curl -L -R -O https://www.lua.org/ftp/lua-5.1.5.tar.gz
         tar zxf lua-5.1.5.tar.gz
         cd lua-5.1.5
@@ -178,6 +200,11 @@ if ! command -v nvm >/dev/null 2>&1; then
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 fi
 
+# Python
+if [ "$(uname -s)" = "Darwin" ]; then
+    brew install python@3.14
+fi
+
 # PIP
 if ! command -v python3 -m pip --version >/dev/null 2>&1; then
     python ../python/get-pip.py
@@ -222,6 +249,11 @@ if ! command -v vim >/dev/null 2>&1; then
     else
         install vim-enhanced
     fi
+fi
+
+# VS Code
+if [ "$(uname -s)" = "Darwin" ]; then
+    brew install --cask visual-studio-code
 fi
 
 # Zioxide
