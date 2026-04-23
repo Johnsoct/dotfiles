@@ -227,7 +227,7 @@ fi
 # Zioxide
 if ! command -v z >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
-        install zioxide
+        install zoxide
     else
         curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
     fi
