@@ -15,8 +15,10 @@ alias pn="pnpm"
 alias pr="pnpm run"
 
 # LINUX
-alias battery="upower -i $(upower -e | grep BAT)"
-alias bright="brightnessctl"
+if [ "$(uname -s)" != "Darwin" ]; then
+    alias battery="upower -i $(upower -e | grep BAT)"
+    alias bright="brightnessctl"
+fi
 
 # File system
 alias ls='eza -lh --group-directories-first --icons'
