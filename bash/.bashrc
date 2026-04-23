@@ -123,7 +123,11 @@ export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin
 export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin/npm
 
 # FZF
-source "$HOME/.fzf.bash"
+if [ "$(uname -s)" = "Darwin" ]; then
+    eval "$(fzf --bash)"
+else
+    source "$HOME/.fzf.bash"
+fi
 
 # Zoxide
 eval "$(zoxide init bash)"
