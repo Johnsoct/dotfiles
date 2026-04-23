@@ -1,49 +1,77 @@
+local function launchOrCycle(appName)
+	local app = hs.application.get(appName)
+	if not app then
+		hs.application.launchOrFocus(appName)
+		return
+	end
+
+	local windows = app:allWindows()
+	if #windows == 0 then
+		hs.application.launchOrFocus(appName)
+		return
+	end
+
+	local focused = hs.window.focusedWindow()
+	if not focused or focused:application():name() ~= appName then
+		windows[1]:focus()
+		return
+	end
+
+	for i, win in ipairs(windows) do
+		if win:id() == focused:id() then
+			local next = windows[(i % #windows) + 1]
+			next:focus()
+			return
+		end
+	end
+end
+
 -- Brave Browser
 hs.hotkey.bind({ "cmd" }, "1", function()
-	hs.application.launchOrFocus("Brave Browser")
+	launchOrCycle("Brave Browser")
 end)
 
 -- Terminal
 hs.hotkey.bind({ "cmd" }, "2", function()
-	hs.application.launchOrFocus("Terminal")
+	launchOrCycle("Terminal")
 end)
 
 -- Claude
 hs.hotkey.bind({ "cmd" }, "3", function()
-	hs.application.launchOrFocus("Claude")
+	launchOrCycle("Claude")
 end)
 
 -- Claude
 hs.hotkey.bind({ "cmd" }, "4", function()
-	hs.application.launchOrFocus("Postman")
+	launchOrCycle("Postman")
 end)
 
 -- Claude
 hs.hotkey.bind({ "cmd" }, "5", function()
-	hs.application.launchOrFocus("Notion")
+	launchOrCycle("Notion")
 end)
 
 -- Claude
 hs.hotkey.bind({ "cmd" }, "6", function()
-	hs.application.launchOrFocus("Google Chrome")
+	launchOrCycle("Google Chrome")
 end)
 
 -- Claude
 hs.hotkey.bind({ "cmd" }, "7", function()
-	hs.application.launchOrFocus("Microsoft Teams")
+	launchOrCycle("Microsoft Teams")
 end)
 
 -- Claude
 hs.hotkey.bind({ "cmd" }, "8", function()
-	hs.application.launchOrFocus("Microsoft Visio")
+	launchOrCycle("Microsoft Visio")
 end)
 
 -- Claude
 hs.hotkey.bind({ "cmd" }, "9", function()
-	hs.application.launchOrFocus("Microsoft Outlook")
+	launchOrCycle("Microsoft Outlook")
 end)
 
 -- Claude
 hs.hotkey.bind({ "cmd" }, "0", function()
-	hs.application.launchOrFocus("Spotify")
+	launchOrCycle("Spotify")
 end)
