@@ -234,4 +234,4 @@ if ! command -v z >/dev/null 2>&1; then
 fi
 
 # Delete any unnecessary packages
-run_os_specific_command_with_sudo autoremove -y
+run_os_specific_command_with_sudo autoremove
