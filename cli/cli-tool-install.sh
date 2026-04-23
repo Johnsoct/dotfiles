@@ -65,6 +65,13 @@ if [ "$(uname -s)" = "Darwin" ]; then
     brew install --cask alacritty
 fi
 
+# Cargo (and Rust)
+if ! command -v cargo >/dev/null 2>&1; then
+    curl https://sh.rustup.rs -sSf | sh -- -y
+
+    source ~/.bashrc
+fi
+
 # CMake
 if ! command -v cmake >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
@@ -254,6 +261,11 @@ fi
 # VS Code
 if [ "$(uname -s)" = "Darwin" ]; then
     brew install --cask visual-studio-code
+fi
+
+# Zellij
+if ! command -v zellij >/dev/null 2>&1; then
+    cargo install --locked zellij
 fi
 
 # Zioxide
