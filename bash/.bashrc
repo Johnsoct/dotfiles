@@ -78,7 +78,6 @@ if ! shopt -oq posix; then
         . /etc/bash_completion
     fi
 fi
-. "$HOME/.cargo/env"
 
 parse_git_bg() {
     # "\033[0;33m" is ANSI output, so no escaping with \[ or \]
@@ -116,11 +115,15 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/local/lua-language-server/bin
 export PATH=$PATH:/usr/local/lib/luarocks/rocks-5.1
 export PATH=$PATH:/usr/sbin
+export PATH=$PATH:$HOME/.cargo/env
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.local/share/cargo/bin
 export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin
 export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin/npm
+
+# Cargo
+# . "$HOME/.cargo/env"
 
 # FZF
 if [ "$(uname -s)" = "Darwin" ]; then
