@@ -33,7 +33,7 @@ end)
 
 -- Terminal
 hs.hotkey.bind({ "cmd" }, "2", function()
-	launchOrCycle("Terminal")
+	launchOrCycle("Alacritty")
 end)
 
 -- Claude
