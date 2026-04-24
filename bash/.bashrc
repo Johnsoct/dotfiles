@@ -123,7 +123,7 @@ export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin
 export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin/npm
 
 # Cargo
-# . "$HOME/.cargo/env"
+. "$HOME/.cargo/env"
 
 # FZF
 if [ "$(uname -s)" = "Darwin" ]; then
@@ -153,3 +153,8 @@ esac
 # SDI specific stuff
 # Conditional guard to prevent errors when .env.sdi does not exist
 [ -f ~/.env.sdi ] && source "$HOME/.env.sdi"
+
+# WARN: Must be at end
+# WARN: Must be at end
+# WARN: Must be at end
+[ -z "$ZELLIJ" ] && zellij
