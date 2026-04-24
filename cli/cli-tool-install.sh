@@ -57,12 +57,17 @@ elif command -v dnf &>/dev/null; then
     sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
     sudo dnf install gh --repo gh-cli
 elif [ "$(uname -s)" = "Darwin" ]; then
-    brew install gh
+    install gh
 fi
 
 # Alacritty
 if [ "$(uname -s)" = "Darwin" ]; then
     brew install --cask alacritty
+fi
+
+# BTOP
+if ! command -v btop >/dev/null 2>&1; then
+    install btop
 fi
 
 # Cargo (and Rust)
@@ -75,7 +80,7 @@ fi
 # CMake
 if ! command -v cmake >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
-        brew install cmake
+        install cmake
     fi
 fi
 
@@ -121,7 +126,7 @@ fi
 # Go
 if ! command -v go --version >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
-        brew install go
+        install go
     fi
 fi
 
@@ -209,7 +214,7 @@ fi
 
 # Python
 if [ "$(uname -s)" = "Darwin" ]; then
-    brew install python@3.14
+    install python@3.14
 fi
 
 # PIP
