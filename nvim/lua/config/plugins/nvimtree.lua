@@ -47,6 +47,7 @@ return {
                         modified_placement = "right_align",
                         padding = "  ",
                         show = {
+                            file = false,
                             folder_arrow = false, -- Stupid empty box
                             hidden = false,
                         },
