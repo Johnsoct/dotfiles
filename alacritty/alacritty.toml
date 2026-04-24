@@ -13,7 +13,8 @@ offset = { y = 4 }
 
 [terminal]
 # shell = { program = "wsl", args = ["~", "-e", "zellij"] }
-shell = { program = "zellij" }
+# shell = { program = "/opt/homebrew/bin/bash", args = ["~", "-e", "zellij"] }
+shell = { program = "/opt/homebrew/bin/bash", args = ["--login" ] }
 
 [window]
 blur = true
