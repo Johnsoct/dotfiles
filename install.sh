@@ -34,6 +34,9 @@ rm -rf ~/.config/alacritty
 ln -fs ~/dev/dotfiles/alacritty ~/.config
 
 # Bash
+rm ~/.bashrc
+rm ~/.bash_aliases
+rm ~/.gitignore
 ln -fs ~/dev/dotfiles/bash/.bashrc ~
 ln -fs ~/dev/dotfiles/bash/.bash_aliases ~
 ln -fs ~/dev/dotfiles/bash/.gitignore ~
@@ -41,16 +44,21 @@ ln -fs ~/dev/dotfiles/bash/.gitignore ~
 # Fonts
 if command -v apt &>/dev/null || command -v dnf &>/dev/null; then
     mkdir -p ~/.local/share/fonts
+    ln -fs ~/dev/dotfiles/fontpatcher/DankMono-Italic.ttf ~/.local/share/fonts
+    ln -fs ~/dev/dotfiles/fontpatcher/DankMono-Regular.ttf ~/.local/share/fonts
+    ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Italic.ttf ~/.local/share/fonts
     ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Regular.ttf ~/.local/share/fonts
-    ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFontPlusCodicons-Regular.ttf ~/.local/share/fonts
 else
     mkdir -p ~/Library/Fonts
-    ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Regular.ttf ~/Library/Fonts
-    ln -fs ~/dev/dotfiles/fontpatcher/DankMonoNerdFontPlusCodicons-Regular.ttf ~/Library/Fonts
+    cp ~/dev/dotfiles/fontpatcher/DankMono-Italic.ttf ~/Library/Fonts
+    cp ~/dev/dotfiles/fontpatcher/DankMono-Regular.ttf ~/Library/Fonts
+    cp ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Italic.ttf ~/Library/Fonts
+    cp ~/dev/dotfiles/fontpatcher/DankMonoNerdFont-Regular.ttf ~/Library/Fonts
 fi
 
 # Hammerspoon
 if [ "$(uname -s)" = "Darwin" ]; then
+    rm -rf ~/.hammerspoon
     mkdir -p ~/.hammerspoon
 
     ln -fs ~/dev/dotfiles/hammerspoon/init.lua ~/.hammerspoon
@@ -58,6 +66,7 @@ fi
 
 # Konsole
 if command -v dnf &>/dev/null; then
+    rm -rf ~/.local/share/konsole
     mkdir -p ~/.local/share/konsole
 
     ln -fs ~/dev/dotfiles/konsole/zenbones_dark.colorscheme ~/.local/share/konsole
@@ -72,6 +81,7 @@ ln -fs ~/dev/dotfiles/nvim ~/.config
 # fi
 
 # Vim
+rm ~/.vimrc
 ln -fs ~/dev/dotfiles/vim/.vimrc ~
 
 # Zellij
