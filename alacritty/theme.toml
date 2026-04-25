@@ -1,2 +1,2 @@
 [general]
-import = ["./zenbones/zenbones_dark.toml"]
+import = ["./zenbones/tokyobones_light.toml"]
