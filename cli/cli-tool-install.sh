@@ -273,7 +273,7 @@ if ! command -v zellij >/dev/null 2>&1; then
     cargo install --locked zellij
 fi
 
-# Zioxide
+# Zoxide
 if ! command -v z >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
         install zoxide
