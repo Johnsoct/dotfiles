@@ -6,28 +6,59 @@ Commonly used packages, configuration files, and programs
 
 - alacritty
 - bash
+- cli tools
+    - Git
+    - GitHub CLI
+    - Alacritty
+    - Btop
+    - Cargo (and rustup)
+    - CMake
+    - Eza
+    - Fastfetch
+    - FD (find)
+    - FZF
+    - Go
+    - Hammerspoon
+    - Lazygit
+    - Lua@latest
+    - Lua@5.1
+    - Luarocks
+    - Image Magick
+    - Neovim
+    - NVM (node version manager)
+    - Python
+    - Pip
+    - Pnpm
+    - Pytest
+    - Vim enhanced
+    - VS Code
+    - Zellij
+    - Zoxide
 - eslint
 - fontpatcher
-- ghostty
-- node
+    - Standard fonts
+    - Nerd font alternatives
+    - Fontpatcher CLI
+- hammerspoon
+- Konsole (Fedora)
+- node packages
 - nvim
+- python pip installer
 - stylelint
+- terminal (mac osx)
 - tsconfig
 - vim
 - vite
 - zellij
+- .gitignore
 
 ## Install
 
-### Prerequisites
-
-1. Go
-2. Python 3.10+
-3. Hammerspoon
-
 ### Steps
 
-The following scripts "installs" only the configurations for alacritty, bash, nvim, zellij, and the global NPM packages required for NVIM.
+`install.sh` installs Homebrew and Bash for Mac OSX, creates all the necessary symlinks, copies fonts to the user's fonts, and triggers `cli-tool-install.sh`
+
+`cli-tool-install.sh` installs all the CLI tools listed above.
 
 From within this directory, run in your terminal of choice:
 
