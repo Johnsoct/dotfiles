@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# >/dev/null 2>&1
+# Redirect the stdout to a black hole and redirect stderr to wherever stdout is going; i.e. silently discard
+# > - Redirect stdout
+# /dev/null - black hole
+# 2> - redirect stderr (file descriptor 2)
+# &1 - to wherever stdout goes (& means file descriptor 1)
+
 run_os_specific_command_with_sudo() {
     # $@ expands each argument as a separate quoted string
     # $* expands all arguments as a single string
@@ -39,30 +46,36 @@ install() {
 }
 
 # GIT
-install git
+if ! command -v git >/dev/null 2>&1; then
+    install git
+fi
 
 # GitHub CLI
-if command -v apt &>/dev/null; then
-    (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) &&
-        sudo mkdir -p -m 755 /etc/apt/keyrings &&
-        out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg &&
-        cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null &&
-        sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg &&
-        sudo mkdir -p -m 755 /etc/apt/sources.list.d &&
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null &&
-        sudo apt update &&
-        sudo apt install gh -y
-elif command -v dnf &>/dev/null; then
-    sudo dnf install dnf5-plugins
-    sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
-    sudo dnf install gh --repo gh-cli
-elif [ "$(uname -s)" = "Darwin" ]; then
-    install gh
+if ! command -v gh >/dev/null 2>&1; then
+    if command -v apt >/dev/null 2>&1; then
+        (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) &&
+            sudo mkdir -p -m 755 /etc/apt/keyrings &&
+            out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg &&
+            cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg >/dev/null &&
+            sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg &&
+            sudo mkdir -p -m 755 /etc/apt/sources.list.d &&
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null &&
+            sudo apt update &&
+            sudo apt install gh -y
+    elif command -v dnf >/dev/null 2>&1; then
+        sudo dnf install dnf5-plugins
+        sudo dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
+        sudo dnf install gh --repo gh-cli
+    elif [ "$(uname -s)" = "Darwin" ]; then
+        install gh
+    fi
 fi
 
 # Alacritty
-if [ "$(uname -s)" = "Darwin" ]; then
-    brew install --cask alacritty
+if ! command -v alacritty >/dev/null 2>&1; then
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install --cask alacritty
+    fi
 fi
 
 # BTOP
@@ -131,8 +144,10 @@ if ! command -v go --version >/dev/null 2>&1; then
 fi
 
 # Hammerspoon
-if [ "$(uname -s)" = "Darwin" ]; then
-    brew install --cask hammerspoon
+if ! command -v hs >/dev/null 2>&1; then
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install --cask hammerspoon
+    fi
 fi
 
 # Lazygit
@@ -213,8 +228,10 @@ if ! command -v nvm >/dev/null 2>&1; then
 fi
 
 # Python
-if [ "$(uname -s)" = "Darwin" ]; then
-    install python@3.14
+if ! command -v python3 >/dev/null 2>&1; then
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install python@3.14
+    fi
 fi
 
 # PIP
@@ -264,8 +281,10 @@ if ! command -v vim >/dev/null 2>&1; then
 fi
 
 # VS Code
-if [ "$(uname -s)" = "Darwin" ]; then
-    brew install --cask visual-studio-code
+if ! command -v code >/dev/null 2>&1; then
+    if [ "$(uname -s)" = "Darwin" ]; then
+        install --cask visual-studio-code
+    fi
 fi
 
 # Zellij
@@ -274,7 +293,7 @@ if ! command -v zellij >/dev/null 2>&1; then
 fi
 
 # Zoxide
-if ! command -v z >/dev/null 2>&1; then
+if ! command -v zoxide >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
         install zoxide
     else
