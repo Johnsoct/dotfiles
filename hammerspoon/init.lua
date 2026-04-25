@@ -1,3 +1,7 @@
+-- Application shortcuts
+-- Application shortcuts
+-- Application shortcuts
+
 local function launchOrCycle(appName)
 	local app = hs.application.get(appName)
 	if not app then
@@ -75,3 +79,7 @@ end)
 hs.hotkey.bind({ "cmd" }, "0", function()
 	launchOrCycle("Spotify")
 end)
+
+-- Application shortcuts
+-- Application shortcuts
+-- Application shortcuts
