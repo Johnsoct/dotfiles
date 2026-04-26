@@ -1,50 +1,143 @@
 layout {
-	default_tab_template {
-		// the default zellij tab-bar and status bar plugins
-		pane size=1 borderless=true {
-			plugin location="zellij:tab-bar"
-		}
-		children
-		pane size=1 borderless=true {
-			plugin location="zellij:status-bar"
-		}
-	}
+    default_tab_template {
+        // Prevents the tab-bar and status-bar from disappearing when pane fullscreen
+        // the default zellij tab-bar and status bar plugins
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=1 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
 
-	tab name="btop" {
-		pane command="btop"
-	}
+    tab name="btop" {
+        pane command="btop"
+    }
 
-	tab name="mwp" {
-		pane split_direction="vertical" {
-			pane {
-				cwd "~/dev/magic-web-portal"
-				command "~/.nvm/versions/node/v22.19.0/bin/npm"
-				args "run" "test:unit"
-				name "unit tests"
-			}
-			pane {
-				cwd "~/dev/magic-web-portal"
-				name "component tests"
-			}
-			pane {
-				cwd "~/dev/magic-web-portal"
-				command "nr"
-				args "dev"
-				name "server"
-			}
-		}
-		pane split_direction="horizontal" {
-			pane {
-				command "/opt/nvim-linux-x86_64/bin/nvim"
-				cwd "~/dev/magic-web-portal"
-				focus true
-				name "nvim"
-			}
-			pane {
-				cwd "~/dev/magic-web-portal"
-				command "lazygit"
-				name "lazygit"
-			}
-		}
-	}
+    tab name="dotfiles" {
+        pane {
+            cwd "~/dev/dotfiles"
+        }
+        pane {
+            cwd "~/dev/dotfiles"
+            command "lazygit"
+        }
+    }
+
+    tab name="devops" {
+        pane {
+            cwd "~/dev/sdi-corp-devops"
+            command "pytest ."
+        }
+        pane {
+            cwd "~/dev/sdi-corp-devops"
+        }
+        pane {
+            cwd "~/dev/sdi-corp-devops"
+            command "lazygit"
+        }
+    }
+
+    tab name="mwp" {
+        pane split_direction="vertical" {
+            pane {
+                cwd "~/dev/mwp"
+                command "pnpm"
+                args "run" "test:unit"
+                name "unit tests"
+            }
+            pane {
+                cwd "~/dev/mwp"
+                name "component tests"
+            }
+            pane {
+                cwd "~/dev/mwp"
+                command "pnpm"
+                args "run" "dev"
+                name "server"
+            }
+        }
+        pane split_direction="horizontal" {
+            pane {
+                command "nvim"
+                cwd "~/dev/mwp"
+                focus true
+                name "nvim"
+            }
+            pane {
+                cwd "~/dev/mwp"
+                command "lazygit"
+                name "lazygit"
+            }
+        }
+    }
+
+    tab name="mwp2" {
+        pane split_direction="vertical" {
+            pane {
+                cwd "~/dev/mwp2"
+                command "pnpm"
+                args "run" "test:unit"
+                name "unit tests"
+            }
+            pane {
+                cwd "~/dev/mwp2"
+                name "component tests"
+            }
+            pane {
+                cwd "~/dev/mwp2"
+                command "pnpm"
+                args "run" "dev"
+                name "server"
+            }
+        }
+        pane split_direction="horizontal" {
+            pane {
+                command "nvim"
+                cwd "~/dev/mwp2"
+                focus true
+                name "nvim"
+            }
+            pane {
+                cwd "~/dev/mwp2"
+                command "lazygit"
+                name "lazygit"
+            }
+        }
+    }
+
+    tab name="mwp3" {
+        pane split_direction="vertical" {
+            pane {
+                cwd "~/dev/mwp3"
+                command "pnpm"
+                args "run" "test:unit"
+                name "unit tests"
+            }
+            pane {
+                cwd "~/dev/mwp3"
+                name "component tests"
+            }
+            pane {
+                cwd "~/dev/mwp3"
+                command "pnpm"
+                args "run" "dev"
+                name "server"
+            }
+        }
+        pane split_direction="horizontal" {
+            pane {
+                command "nvim"
+                cwd "~/dev/mwp3"
+                focus true
+                name "nvim"
+            }
+            pane {
+                cwd "~/dev/mwp3"
+                command "lazygit"
+                name "lazygit"
+            }
+        }
+    }
 }
