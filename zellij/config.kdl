@@ -1,6 +1,9 @@
-mouse_mode true 
+copy_command "pbcopy"
+default_mode "normal"
+mouse_mode true
 on_force_close "quit"
 pane_frames false
+rounded_corners false
 show_startup_tips false
 simplified_ui true
 theme "ansi"
@@ -14,7 +17,7 @@ ui {
 keybinds {
     locked {
     }
-    
+
     normal {
     }
 
