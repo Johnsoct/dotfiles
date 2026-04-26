@@ -289,7 +289,9 @@ fi
 
 # Zellij
 if ! command -v zellij >/dev/null 2>&1; then
-    cargo install --locked zellij
+    # This version of zellij does not have issues with fullscreen panes and zoom breaking the status-bar
+    # and tab-bar in Alacritty
+    cargo install --locked zellij@0.43.1
 fi
 
 # Zoxide
