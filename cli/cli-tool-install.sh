@@ -237,6 +237,8 @@ fi
 # PIP
 if ! command -v python3 -m pip --version >/dev/null 2>&1; then
     python ../python/get-pip.py
+
+    python -m pip install --upgrade pip
 fi
 
 # PNPM
