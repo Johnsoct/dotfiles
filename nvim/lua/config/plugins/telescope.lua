@@ -32,7 +32,7 @@ return {
                         theme = "ivy",
                     },
                     find_files = {
-                        hidden = false,
+                        hidden = true,
                         no_ignore = false,
                         theme = "ivy",
                     },
