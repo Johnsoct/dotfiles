@@ -106,9 +106,17 @@ TIME='\[\e[32m\]\t\[\e[0m\]'
 # \\ around function calls keep them dynamic
 PS1="${TIME} ${CWD}:\[\$(parse_git_bg)\]\$(get_git_branch)${COLOR_END} \$ "
 
+# Bootstrap homebrew's environment variables and binaries, such as `brew`, `$HOMEBREW_PREFIX`, etc.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # export a PATH with system directories, user directories, and custom paths
+if [ "$(uname -s)" = "Darwin" ]; then
+    # This puts the homebrew installed python in front of the system's installed python
+    # `brew --prefix python` avoids hardcoding the python version
+    export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+fi
 export PATH=$PATH:/bin
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH=$PATH:/opt/nvim-linux-x86_64/bin
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/go/bin
@@ -123,7 +131,7 @@ export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin
 export PATH=$PATH:$HOME/.nvm/versions/node/v22.15.1/bin/npm
 
 # Cargo
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 # FZF
 if [ "$(uname -s)" = "Darwin" ]; then

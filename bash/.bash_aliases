@@ -13,6 +13,7 @@ alias python="python3"
 alias nr="npm run"
 alias nri="rm -rf node_modules && npm install"
 alias pn="pnpm"
+alias pnif="pnpm i --frozen-lockfile"
 alias pr="pnpm run"
 
 # LINUX

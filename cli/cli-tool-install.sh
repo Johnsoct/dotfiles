@@ -273,6 +273,16 @@ if ! command -v pytest >/dev/null 2>&1; then
     pip install pytest
 fi
 
+# Ripgrep
+if ! command -v ripgrep >/dev/null 2>&1; then
+    install ripgrep
+fi
+
+# Tree-sitter
+if ! command -v tree-sitter >/dev/null 2>&1; then
+    install tree-sitter
+fi
+
 # VIM Enhanced
 if ! command -v vim >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then

@@ -1,19 +1,32 @@
+--- https://github.com/JoosepAlviste/dotfiles/blob/master/config/nvim/lua/j/plugins/treesitter.lua
+---@param bufnr integer
+---@return boolean
+--- Used to skip tree-sitter on files over 100K lines
+local is_large_file = function(bufnr)
+    return vim.api.nvim_buf_line_count(bufnr) > 100000
+end
+
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        -- Tells Lazy to run TSUpdate whenever we update this plugin, which
-        -- ensures treesitter is rebuilt whenever we download new queries (parsers)
+        branch = "main",
         build = ":TSUpdate",
-        branch = "master",
-        lazy = false,
-        opts = {
-            -- https://www.lazyvim.org/plugins/treesitter#nvim-treesitter
-            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-            auto_install = false,
-            folds = { enable = true },
-            ensure_installed = {
+        init = function()
+            -- This autocmd runs before parser updates happen, and it registers a custom vue parser
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "TSUpdate",
+                callback = function()
+                    require("nvim-treesitter.parsers").vue = {
+                        install_info = {
+                            -- revision = "d3a6a9b8170d93e05436ad792833a8b1e9995f5b",
+                            url = "https://github.com/tree-sitter-grammars/tree-sitter-vue",
+                        },
+                    }
+                end,
+            })
+
+            require("nvim-treesitter").install({
                 "bash",
-                "blade",
                 "c",
                 "css",
                 "javascript",
@@ -27,6 +40,8 @@ return {
                 "markdown_inline",
                 "php",
                 "php_only",
+                "python",
+                "regex",
                 "scss",
                 "sql",
                 "toml",
@@ -35,30 +50,58 @@ return {
                 "vimdoc",
                 "vue",
                 "yaml",
-            },
-            highlight = {
-                enable = true,
+                "vim",
+                "vimdoc",
+            })
 
-                -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-                -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-                -- the name of the parser) list of language that will be disabled
-                -- disable = { "c", "rust" },
-                -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-                disable = function(lang, buf)
-                    local max_filesize = 5000 * 1024 -- 5 MB
-                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                    if ok and stats and stats.size > max_filesize then
-                        return true
+            local group = vim.api.nvim_create_augroup("MyTreesitterSetup", { clear = true })
+
+            -- For each listed filetype, when a buffer opens, it does three things if the file isn't too large:
+            -- vim.treesitter.start() — starts Neovim's built-in treesitter highlighter
+            -- Sets indentexpr to nvim-treesitter's indent function
+            -- Sets folding to use treesitter's fold expression
+            vim.api.nvim_create_autocmd("FileType", {
+                group = group,
+                pattern = {
+                    "vue",
+                    "typescript",
+                    "typescriptreact",
+                    "query",
+                    "markdown",
+                    "javascript",
+                    "json",
+                    "html",
+                    "graphql",
+                    "yaml",
+                    "css",
+                    "bash",
+                    "scss",
+                },
+                callback = function(args)
+                    if not is_large_file(args.buf) then
+                        -- Starts the built-in tree-sitter highlighter
+                        vim.treesitter.start()
+                        -- Sets nvim's tree-sitter's indent function
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                        -- Sets folding to use treesitter's fold expression
+                        vim.wo[0][0].foldmethod = "expr"
+                        vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
                     end
                 end,
-
-                -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-                -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-                -- Using this option may slow down your editor, and you may see some duplicate highlights.
-                -- Instead of true it can also be a list of languages
-                additional_vim_regex_highlighting = false,
-            },
-            indent = { enable = true },
-        },
+            })
+        end,
+    },
+    {
+        -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching
+        -- text. It extends vim's % key to language-specific words instead of just single characters
+        "andymass/vim-matchup",
+        config = function()
+            vim.g.matchup_matchparen_offscreen = {}
+        end,
+    },
+    {
+        -- Plugin to use treesitter to auto close and auto rename html tag
+        "windwp/nvim-ts-autotag",
+        opts = {},
     },
 }

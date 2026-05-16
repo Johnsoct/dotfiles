@@ -13,8 +13,12 @@ return {
             -- https://github.com/zenbones-theme/zenbones.nvim
             config = function()
                 vim.g.zenbones_darken_comments = 45
-                vim.o.background = "light"
-                vim.cmd.colorscheme("tokyobones")
+                vim.o.background = "dark"
+                vim.g.tokyobones = {
+                    lightness = "bright",
+                }
+                -- vim.cmd.colorscheme("tokyobones")
+                vim.cmd.colorscheme("zenbones")
             end,
         },
     },
