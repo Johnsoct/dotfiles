@@ -129,10 +129,8 @@ if ! command -v fzf >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
         install fzf
     else
-        git clone https://github.com/junegunn/fzf.git
-        chmod +x fzf/install
-        ./fzf/install -y
-        rm -rf fzf
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install
     fi
 fi
 
