@@ -240,7 +240,7 @@ if ! command -v python3 -m pip --version >/dev/null 2>&1; then
 fi
 
 # PNPM
-if ! command -v pnpm >/dev/null 2>&1; then
+if ! command -v pnpm --version >/dev/null 2>&1; then
     if [ "$(uname -s)" = "Darwin" ]; then
         install pnpm
 
