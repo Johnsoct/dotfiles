@@ -107,7 +107,9 @@ TIME='\[\e[32m\]\t\[\e[0m\]'
 PS1="${TIME} ${CWD}:\[\$(parse_git_bg)\]\$(get_git_branch)${COLOR_END} \$ "
 
 # Bootstrap homebrew's environment variables and binaries, such as `brew`, `$HOMEBREW_PREFIX`, etc.
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ "$(uname -s)" = "Darwin" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # export a PATH with system directories, user directories, and custom paths
 if [ "$(uname -s)" = "Darwin" ]; then
